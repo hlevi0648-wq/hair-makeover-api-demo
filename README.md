@@ -1,3 +1,5 @@
+[![Demo](demo.png)](demo.png)
+
 # Runway API Hair Makeover NextJS Example
 
 This application demonstrates how to integrate with the Runway API to generate hair makeovers based on a user-uploaded selfie and a selected hairstyle.
