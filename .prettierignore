@@ -1,0 +1,28 @@
+# build output
+.next/
+out/
+build/
+dist/
+
+# dependencies
+node_modules/
+
+# logs
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# cache
+.eslintcache
+.npm
+.cache
+
+# misc
+.DS_Store
+*.pem
+.env*
+!.env.example
+
+# package specific
+package-lock.json
+public/ 

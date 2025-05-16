@@ -1,36 +1,49 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Runway API Hair Makeover NextJS Example
+
+This application demonstrates how to integrate with the Runway API to generate hair makeovers based on a user-uploaded selfie and a selected hairstyle.
+
+- Enter your Runway API key using the "Get started" button in the header.
+- Upload a selfie.
+- Select a hairstyle.
+- Click "Generate".
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+- Node.js
+- npm
+- Runway API key (you can get one at [https://dev.runwayml.com/](https://dev.runwayml.com/))
+
+### Installation
+
+1. Clone this repository
+2. Install dependencies:
+
+```bash
+npm install
+```
+
+### API Key Configuration
+
+This application requires a Runway API key to function.
+
+- **Frontend**: The API key is entered via a popover in the application's header (click "Get started"). It is then stored in your browser's `localStorage`.
+- **Backend**: The frontend sends the API key to the backend API endpoint (`/api/generate`) via an `Authorization: Bearer <YOUR_API_KEY>` header. Your backend code for this endpoint needs to be configured to read and use this header for authenticating requests to the Runway API.
+
+If your backend has other routes or services that interact directly with the Runway API (not initiated by this client-side flow), you would typically configure an API key for those using environment variables. However, for the image generation feature in this demo, the key from the `Authorization` header is used.
+
+### Running the application
+
+Start the development server:
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
-
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
-
 ## Learn More
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- [Runway API Documentation](https://docs.runwayml.com/docs/overview)
+- [Next.js Documentation](https://nextjs.org/docs)
