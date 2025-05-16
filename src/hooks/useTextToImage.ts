@@ -20,36 +20,13 @@ export function useTextToImage() {
   const [results, setResults] = useState<string[]>([]);
   const [currentTaskId, setCurrentTaskId] = useState<string | null>(null);
   const abortControllerRef = useRef<AbortController | null>(null);
-  const [apiKey, setApiKeyInternal] = useState<string | null>(null);
-
-  // Load API key from localStorage on initial mount
-  useEffect(() => {
-    const storedApiKey = localStorage.getItem('apiKey');
-    if (storedApiKey) {
-      setApiKeyInternal(storedApiKey);
-    }
-  }, []);
 
   // Update isLoading whenever status changes
   useEffect(() => {
     setIsLoading(status === Status.PENDING || status === Status.RUNNING);
   }, [status]);
 
-  const setApiKey = (newApiKey: string | null) => {
-    setApiKeyInternal(newApiKey);
-    if (newApiKey) {
-      localStorage.setItem('apiKey', newApiKey);
-    } else {
-      localStorage.removeItem('apiKey');
-    }
-  };
-
-  const generateImage = async (
-    userImage: File,
-    hairstyleImageUrl: string,
-    prompt: string,
-    apiKey: string
-  ) => {
+  const generateImage = async (userImage: File, hairstyleImageUrl: string, prompt: string) => {
     setStatus(Status.PENDING);
 
     try {
@@ -88,7 +65,6 @@ export function useTextToImage() {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          Authorization: `Bearer ${apiKey}`,
         },
         body: JSON.stringify(payload),
         signal: controller.signal, // Use the abort signal for the initial request
@@ -104,7 +80,7 @@ export function useTextToImage() {
       setCurrentTaskId(task.id);
 
       // Now use the same controller for polling
-      const results = await pollForCompletion(task.id, setStatus, apiKey, controller.signal);
+      const results = await pollForCompletion(task.id, setStatus, controller.signal);
 
       setResults(results);
       return results;
@@ -144,9 +120,6 @@ export function useTextToImage() {
 
       const response = await fetch(`/api/tasks/${currentTaskId}`, {
         method: 'DELETE',
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
       });
 
       // Handle both successful cancellation and "already cancelled/not found" cases
@@ -195,15 +168,12 @@ export function useTextToImage() {
     cancelTask,
     resetResults,
     currentTaskId,
-    apiKey,
-    setApiKey,
   };
 }
 
 async function pollForCompletion(
   taskId: string,
   setStatus: (status: Status) => void,
-  apiKey: string,
   signal?: AbortSignal
 ) {
   // Set status to RUNNING immediately when polling starts
@@ -217,11 +187,7 @@ async function pollForCompletion(
     }
 
     try {
-      const response = await fetch(`/api/tasks/${taskId}`, {
-        headers: {
-          Authorization: `Bearer ${apiKey}`,
-        },
-      });
+      const response = await fetch(`/api/tasks/${taskId}`);
       const data = await response.json();
 
       if (data.status === 'SUCCEEDED') {
@@ -248,38 +214,14 @@ async function pollForCompletion(
           });
         } catch (error) {
           // If the promise was rejected due to an abort, break the polling loop
-          if (signal?.aborted) {
-            return [];
-          }
-        }
-      }
-    } catch (error) {
-      // Check if polling has been aborted
-      if (signal?.aborted) {
-        return [];
-      }
-
-      console.error('Error checking task status:', error);
-      setStatus(Status.FAILED);
-
-      // Wait before retrying after any error
-      try {
-        await new Promise((resolve, reject) => {
-          const timeout = setTimeout(resolve, 2500);
-
-          if (signal) {
-            signal.addEventListener('abort', () => {
-              clearTimeout(timeout);
-              reject(new Error('Polling aborted'));
-            });
-          }
-        });
-      } catch (error) {
-        // If the promise was rejected due to an abort, break the polling loop
-        if (signal?.aborted) {
+          console.log('Polling delay aborted');
           return [];
         }
       }
+    } catch (error) {
+      console.error('Error polling for task completion:', error);
+      setStatus(Status.FAILED);
+      throw error;
     }
   }
 }

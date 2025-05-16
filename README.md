@@ -2,7 +2,6 @@
 
 This application demonstrates how to integrate with the Runway API to generate hair makeovers based on a user-uploaded selfie and a selected hairstyle.
 
-- Enter your Runway API key using the "Get started" button in the header.
 - Upload a selfie.
 - Select a hairstyle.
 - Click "Generate".
@@ -26,12 +25,16 @@ npm install
 
 ### API Key Configuration
 
-This application requires a Runway API key to function.
+This application requires a Runway API key to function. You need to set up an environment variable:
 
-- **Frontend**: The API key is entered via a popover in the application's header (click "Get started"). It is then stored in your browser's `localStorage`.
-- **Backend**: The frontend sends the API key to the backend API endpoint (`/api/generate`) via an `Authorization: Bearer <YOUR_API_KEY>` header. Your backend code for this endpoint needs to be configured to read and use this header for authenticating requests to the Runway API.
+1. Create a `.env.local` file in the root of the project
+2. Add your Runway API key as `RUNWAY_API_KEY`:
 
-If your backend has other routes or services that interact directly with the Runway API (not initiated by this client-side flow), you would typically configure an API key for those using environment variables. However, for the image generation feature in this demo, the key from the `Authorization` header is used.
+```
+RUNWAY_API_KEY=your_runway_api_key_here
+```
+
+The API key will be automatically used by the application to authenticate requests to the Runway API.
 
 ### Running the application
 

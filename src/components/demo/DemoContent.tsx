@@ -51,7 +51,7 @@ const hairstyles = [
 
 export function DemoContent() {
   const { image, imagePreview, handleImageSelection, resetImage } = useImageUpload();
-  const { isLoading, results, generateImage, resetResults, apiKey } = useTextToImageContext();
+  const { isLoading, results, generateImage, resetResults } = useTextToImageContext();
   const [selectedHairstyle, setSelectedHairstyle] = useState<number>(-1);
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -60,11 +60,8 @@ export function DemoContent() {
     const index = selectedHairstyle - 1;
     const hairstyleData = hairstyles[index];
 
-    if (image && hairstyleData && apiKey) {
-      generateImage(image, hairstyleData.imageUrl, hairstyleData.prompt, apiKey);
-    } else if (!apiKey) {
-      console.warn('API key is not set. Please set it in the header.');
-      alert('Please set your Runway API Key in the header first.');
+    if (image && hairstyleData) {
+      generateImage(image, hairstyleData.imageUrl, hairstyleData.prompt);
     }
   };
 
@@ -90,18 +87,18 @@ export function DemoContent() {
               <ResultView results={results} onReset={handleReset} />
             ) : (
               <>
-                <div className="flex h-full items-center justify-between py-8">
-                  <div className="flex flex-1 flex-col gap-4 px-12">
+                <div className="flex h-full flex-col items-center justify-between py-8 md:flex-row">
+                  <div className="mb-8 flex w-full flex-1 flex-col gap-4 px-6 md:mb-0 md:w-auto md:px-12">
                     <p className="text-center text-xs font-medium text-[#0C0C0C] uppercase">
                       Add a selfie
                     </p>
                     {imagePreview ? (
-                      <ImagePreview imageUrl={imagePreview} onClear={handleReset} />
+                      <ImagePreview imageUrl={imagePreview} onClear={resetImage} />
                     ) : (
                       <ImagePicker onImageSelected={handleImageSelection} />
                     )}
                   </div>
-                  <div className="flex flex-1 flex-col gap-4 border-l border-[#E4E5E6] px-12">
+                  <div className="flex w-full flex-1 flex-col gap-4 border-[#E4E5E6] px-6 md:w-auto md:border-l md:px-12">
                     <p className="text-center text-xs font-medium text-[#0C0C0C] uppercase">
                       Select hairstyle
                     </p>
@@ -109,11 +106,11 @@ export function DemoContent() {
                   </div>
                 </div>
 
-                <div className="flex justify-end border-t border-[#E4E5E6] px-8 py-4">
+                <div className="flex justify-end border-t border-[#E4E5E6] px-4 py-4 sm:px-8">
                   <Button
                     onClick={handleSubmit}
-                    disabled={!image || selectedHairstyle === -1 || !apiKey}
-                    title={!apiKey ? 'Please set your API key in the header' : ''}
+                    disabled={!image || selectedHairstyle === -1}
+                    className="w-full sm:w-auto"
                   >
                     Generate
                   </Button>

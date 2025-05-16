@@ -24,14 +24,18 @@ export function HairstyleSelector({ onSelect }: HairstyleSelectorProps) {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-4" role="radiogroup" aria-label="Hairstyle options">
+    <div
+      className="grid grid-cols-2 gap-3 sm:grid-cols-3 md:gap-4"
+      role="radiogroup"
+      aria-label="Hairstyle options"
+    >
       {hairstyles.map(hairstyle => (
         <button
           key={hairstyle.id}
           type="button"
           onClick={() => handleSelect(hairstyle.id)}
           className={cn(
-            'mx-auto h-30 w-30 cursor-pointer overflow-hidden rounded-full border transition-all duration-300 focus:outline-none',
+            'mx-auto h-[100px] w-[100px] cursor-pointer overflow-hidden rounded-full border transition-all duration-300 focus:outline-none sm:h-30 sm:w-30',
             selectedHairstyle === hairstyle.id ? 'border-[#000000]' : 'border-[#E4E5E6]',
             selectedHairstyle !== null && selectedHairstyle !== hairstyle.id
               ? 'opacity-30'
@@ -40,7 +44,11 @@ export function HairstyleSelector({ onSelect }: HairstyleSelectorProps) {
           role="radio"
           aria-checked={selectedHairstyle === hairstyle.id}
         >
-          <img src={hairstyle.src} alt={`Hairstyle ${hairstyle.id}`} />
+          <img
+            src={hairstyle.src}
+            alt={`Hairstyle ${hairstyle.id}`}
+            className="h-full w-full object-cover"
+          />
           <span className="sr-only">
             {selectedHairstyle === hairstyle.id
               ? `Hairstyle ${hairstyle.id} selected`
