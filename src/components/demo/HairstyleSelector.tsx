@@ -31,7 +31,7 @@ export function HairstyleSelector({ onSelect }: HairstyleSelectorProps) {
           type="button"
           onClick={() => handleSelect(hairstyle.id)}
           className={cn(
-            'h-30 w-30 cursor-pointer overflow-hidden rounded-full border transition-all duration-300 focus:outline-none',
+            'mx-auto h-30 w-30 cursor-pointer overflow-hidden rounded-full border transition-all duration-300 focus:outline-none',
             selectedHairstyle === hairstyle.id ? 'border-[#000000]' : 'border-[#E4E5E6]',
             selectedHairstyle !== null && selectedHairstyle !== hairstyle.id
               ? 'opacity-30'

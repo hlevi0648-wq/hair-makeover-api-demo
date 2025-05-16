@@ -77,13 +77,13 @@ export function DemoContent() {
   return (
     <div className="flex flex-col gap-6">
       <div className="mx-auto flex flex-col items-center gap-2.5">
-        <h2 className="text-4xl font-normal text-[#0C0C0C]">Hair Makeover Generator</h2>
-        <p className="text-lg font-normal text-[#7C7C7C]">
+        <h2 className="text-3xl font-normal text-[#0C0C0C] sm:text-4xl">Hair Makeover Generator</h2>
+        <p className="text-base font-normal text-[#7C7C7C] sm:text-lg">
           Try out different hairstyles with just one selfie.
         </p>
       </div>
 
-      <div className="flex flex-col gap-8 rounded-lg border border-[#D0D4D4] bg-white p-8">
+      <div className="flex flex-col gap-8 rounded-lg border border-[#D0D4D4] bg-white p-4 sm:p-6 md:p-8">
         {isLoading ? (
           <LoadingState onCancel={() => handleReset()} />
         ) : (
@@ -92,8 +92,8 @@ export function DemoContent() {
               <ResultView results={results} onReset={handleReset} />
             ) : (
               <>
-                <div className="flex items-start gap-30">
-                  <div className="flex flex-1 flex-col gap-4">
+                <div className="flex flex-col items-start gap-8 md:flex-row md:gap-12">
+                  <div className="flex w-full flex-1 flex-col gap-4 md:w-auto">
                     <p className="text-center text-xs font-medium text-[#0C0C0C] uppercase">
                       Add a selfie
                     </p>
@@ -103,7 +103,7 @@ export function DemoContent() {
                       <ImagePicker onImageSelected={handleImageSelection} />
                     )}
                   </div>
-                  <div className="flex flex-1 flex-col gap-4">
+                  <div className="flex w-full flex-1 flex-col gap-4 md:w-auto">
                     <p className="text-center text-xs font-medium text-[#0C0C0C] uppercase">
                       Select hairstyle
                     </p>

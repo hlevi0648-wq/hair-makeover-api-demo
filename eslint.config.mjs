@@ -1,4 +1,5 @@
 import { FlatCompat } from '@eslint/eslintrc';
+import prettierPlugin from 'eslint-plugin-prettier';
 import { dirname } from 'path';
 import { fileURLToPath } from 'url';
 
@@ -15,7 +16,7 @@ const eslintConfig = [
     rules: {
       'prettier/prettier': 'error',
     },
-    plugins: ['prettier'],
+    plugins: { prettier: prettierPlugin },
   },
 ];
 
