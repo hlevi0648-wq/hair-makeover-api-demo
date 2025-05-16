@@ -48,5 +48,5 @@ Open [http://localhost:3000](http://localhost:3000) with your browser to see the
 
 ## Learn More
 
-- [Runway API Documentation](https://docs.runwayml.com/docs/overview)
+- [Runway API Documentation](https://docs.dev.runwayml.com/)
 - [Next.js Documentation](https://nextjs.org/docs)
