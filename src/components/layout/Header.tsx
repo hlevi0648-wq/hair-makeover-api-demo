@@ -28,7 +28,7 @@ export function Header() {
                 variant="outline"
                 className="relative rounded-full border-gray-500 px-4 py-2 text-sm text-gray-500 outline-none hover:border-black hover:text-black focus-visible:border-black focus-visible:text-black"
               >
-                Get started
+                {apiKey ? 'Change API key' : 'Get started'}
                 {!apiKey && (
                   <span className="absolute -top-1 right-0 block h-3 w-3 rounded-full bg-red-500" />
                 )}

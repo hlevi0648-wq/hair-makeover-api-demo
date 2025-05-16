@@ -7,14 +7,14 @@ type ResultViewProps = {
 
 export function ResultView({ results, onReset }: ResultViewProps) {
   return (
-    <div className="flex flex-col gap-6">
+    <div className="flex flex-col gap-6 p-12">
       <div className="flex items-center justify-center gap-4">
         {results.map((result, index) => (
-          <div key={`result-${index}`} className="relative flex-1 shrink-0">
+          <div key={`result-${index}`} className="relative">
             <img
               src={result}
               alt="Processed result"
-              className="max-h-full max-w-full rounded-lg object-contain"
+              className="max-h-[500px] w-auto rounded-lg object-contain"
             />
           </div>
         ))}

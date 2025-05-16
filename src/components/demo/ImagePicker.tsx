@@ -152,7 +152,7 @@ export function ImagePicker({ onImageSelected }: ImagePickerProps) {
         <video
           ref={videoRef}
           autoPlay
-          className="w-full scale-x-[-1] transform rounded-lg"
+          className="aspect-square w-full scale-x-[-1] transform rounded-lg object-cover"
           playsInline
         />
         <div className="mt-4 flex justify-center gap-4">
@@ -180,11 +180,11 @@ export function ImagePicker({ onImageSelected }: ImagePickerProps) {
         <div
           ref={dropZoneRef}
           onClick={handleCameraCapture}
-          className="hover:border-primary mx-auto flex h-[268px] w-[268px] cursor-pointer flex-col items-center justify-center rounded-lg border-2 border-dashed border-gray-500 p-8 text-center transition-colors"
+          className="hover:border-primary mx-auto flex h-[268px] w-[268px] cursor-pointer flex-col items-center justify-center rounded-lg bg-[#E4E5E6] p-8 text-center transition-colors"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
-            className="mx-auto h-12 w-12 text-gray-400"
+            className="mx-auto h-[28px] w-[28px] text-gray-400"
             fill="none"
             viewBox="0 0 24 24"
             stroke="currentColor"
@@ -202,13 +202,11 @@ export function ImagePicker({ onImageSelected }: ImagePickerProps) {
               d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
             />
           </svg>
-          <p className="mt-2 text-sm text-gray-500">Click to take a photo with your camera</p>
-          <p className="mt-1 text-xs text-gray-500">Or drop an image file here</p>
+          <p className="mt-2 text-sm text-gray-500">Take a selfie</p>
+          <p className="mt-1 text-xs text-gray-500">or drop an image file here</p>
         </div>
 
-        {/*
-
-        <div className="text-center">
+        {/* <div className="text-center">
           <Button
             type="button"
             variant="link"
@@ -217,20 +215,19 @@ export function ImagePicker({ onImageSelected }: ImagePickerProps) {
           >
             or select from device
           </Button>
-        </div>
-
+        </div> */}
 
         <div className="flex flex-col gap-2">
           <p className="text-center text-sm font-normal text-[#666E7A]">Or, choose from below</p>
-          <div className="flex items-center gap-2">
+          <div className="flex items-center justify-center gap-2">
             {Array.from({ length: 5 }).map((_, index) => (
               <button
                 key={`preset-${index}`}
-                onClick={() => handleSelectPreset('/images/demo-pictures/jeremy.jpg', index)}
+                onClick={() => handleSelectPreset(`/images/examples/${index + 1}.jpeg`, index)}
                 className="h-18 w-18 cursor-pointer rounded-xl"
               >
                 <img
-                  src="/images/demo-pictures/jeremy.jpg"
+                  src={`/images/examples/${index + 1}.jpeg`}
                   alt=""
                   className="h-full w-full rounded-xl object-cover"
                 />
@@ -238,8 +235,6 @@ export function ImagePicker({ onImageSelected }: ImagePickerProps) {
             ))}
           </div>
         </div>
-
-        */}
       </div>
     </>
   );

@@ -83,7 +83,7 @@ export function DemoContent() {
         </p>
       </div>
 
-      <div className="flex flex-col gap-8 rounded-lg border border-[#D0D4D4] bg-white p-4 sm:p-6 md:p-8">
+      <div className="flex flex-col rounded-lg border border-[#D0D4D4] bg-white">
         {isLoading ? (
           <LoadingState onCancel={() => handleReset()} />
         ) : (
@@ -92,8 +92,8 @@ export function DemoContent() {
               <ResultView results={results} onReset={handleReset} />
             ) : (
               <>
-                <div className="flex flex-col items-start gap-8 md:flex-row md:gap-12">
-                  <div className="flex w-full flex-1 flex-col gap-4 md:w-auto">
+                <div className="flex h-full items-center justify-between py-8">
+                  <div className="flex flex-1 flex-col gap-4 px-12">
                     <p className="text-center text-xs font-medium text-[#0C0C0C] uppercase">
                       Add a selfie
                     </p>
@@ -103,7 +103,7 @@ export function DemoContent() {
                       <ImagePicker onImageSelected={handleImageSelection} />
                     )}
                   </div>
-                  <div className="flex w-full flex-1 flex-col gap-4 md:w-auto">
+                  <div className="flex flex-1 flex-col gap-4 border-l border-[#E4E5E6] px-12">
                     <p className="text-center text-xs font-medium text-[#0C0C0C] uppercase">
                       Select hairstyle
                     </p>
@@ -111,14 +111,15 @@ export function DemoContent() {
                   </div>
                 </div>
 
-                <Button
-                  onClick={handleSubmit}
-                  disabled={!image || selectedHairstyle === -1 || !apiKey}
-                  className="mx-auto"
-                  title={!apiKey ? 'Please set your API key in the header' : ''}
-                >
-                  Generate
-                </Button>
+                <div className="flex justify-end border-t border-[#E4E5E6] px-8 py-4">
+                  <Button
+                    onClick={handleSubmit}
+                    disabled={!image || selectedHairstyle === -1 || !apiKey}
+                    title={!apiKey ? 'Please set your API key in the header' : ''}
+                  >
+                    Generate
+                  </Button>
+                </div>
               </>
             )}
           </>
