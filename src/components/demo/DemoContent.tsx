@@ -69,9 +69,7 @@ export function DemoContent() {
   };
 
   const handleReset = () => {
-    resetImage();
     resetResults();
-    setSelectedHairstyle(-1);
   };
 
   return (

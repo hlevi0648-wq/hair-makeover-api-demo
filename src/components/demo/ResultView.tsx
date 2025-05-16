@@ -21,7 +21,7 @@ export function ResultView({ results, onReset }: ResultViewProps) {
       </div>
       <div className="flex justify-center gap-4">
         <Button variant="outline" onClick={onReset}>
-          Change input
+          Try a different hairstyle
         </Button>
       </div>
     </div>
