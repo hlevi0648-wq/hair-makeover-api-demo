@@ -67,5 +67,10 @@ async function cancelTaskHandler(
   }
 }
 
-export const GET = withApiAuth(getTaskHandler);
-export const DELETE = withApiAuth(cancelTaskHandler);
+type NextRouteHandler = (
+  request: NextRequest,
+  context: { params: { id: string } }
+) => Promise<NextResponse>;
+
+export const GET: NextRouteHandler = withApiAuth(getTaskHandler);
+export const DELETE: NextRouteHandler = withApiAuth(cancelTaskHandler);
